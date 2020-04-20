@@ -1,0 +1,17 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: dummy-cluster
+  region: ap-southeast-1
+
+nodeGroups:
+  - name: ng-1
+    availabilityZones: ["ap-southeast-1a"]
+    minSize: 2
+    maxSize: 2
+    instancesDistribution:
+        instanceTypes: ["t3a.xlarge"]
+        onDemandBaseCapacity: 0
+        onDemandPercentageAboveBaseCapacity: 0
+        
