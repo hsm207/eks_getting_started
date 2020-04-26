@@ -16,5 +16,8 @@ curl --location $LATEST_EKSCTL |
 # move the extracted binary
 sudo mv /tmp/eksctl /usr/local/bin
 
+# install autocomplete
+. <(eksctl completion bash)
+
 # test if installation is successful
 eksctl version

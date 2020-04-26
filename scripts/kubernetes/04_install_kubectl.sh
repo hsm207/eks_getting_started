@@ -26,5 +26,8 @@ chmod +x ./kubectl
 # copy kubectl to a folder in PATH
 sudo mv  kubectl /usr/local/bin
 
+# install autocomplete
+. <(kubectl completion bash)
+
 # verify version installed
  kubectl version --short --client
