@@ -43,6 +43,53 @@ spec:
       - name: persistent-storage
         persistentVolumeClaim:
           claimName: fsx-claim
+      securityContext:
+        fsGroup: 100
+status: {}
+EOF
+
+# workaround
+cat <<EOF > /tmp/deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jupyter
+  name: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jupyter
+    spec:
+      initContainers:
+      - image: busybox:1.28
+        name: fsx-bug-fix
+        resources: {}
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /home/jovyan/fsx
+        command: ['sh', '-c', "chmod 777 /home/jovyan/fsx"]
+      containers:
+      - image: jupyter/tensorflow-notebook:latest
+        name: tensorflow-notebook
+        resources: {}
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /home/jovyan/fsx
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: fsx-claim
+      securityContext:
+        fsGroup: 100
 status: {}
 EOF
 
