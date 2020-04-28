@@ -11,7 +11,7 @@ nodeGroups:
     minSize: 2
     maxSize: 2
     instancesDistribution:
-        instanceTypes: ["t3a.large"]
+        instanceTypes: ["t3a.2xlarge"]
         onDemandBaseCapacity: 0
         onDemandPercentageAboveBaseCapacity: 0
         
